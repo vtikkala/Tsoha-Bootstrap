@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Hae asiakas</h1>
+
+  <form>
+    <div class="form-group">
+      <label>Sukunimi</label>
+      <input class="form-control" value="Meikäläinen" type="text">
+    </div>
+    <div class="form-group">
+      <label>Etunimi</label>
+      <input class="form-control" value="Matti" type="text">
+    </div>
+    <div class="form-group">
+      <label>Henkilötunnus</label>
+      <input class="form-control" value="010199-101A" type="text">
+    </div>
+    <div class="form-group">
+      <label>Asiakastunnus</label>
+      <input class="form-control" value="123456789" type="text">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Hae</button>
+      <button type="submit" class="btn btn-primary">Luo asiakas</button>
+    </div>
+  </form>
+
+  <h3>Löydetyt asiakkaat</h3>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Sukunimi</th>
+        <th>Etunimi</th>
+        <th>Henkilötunnus</th>
+        <th>Asiakastunnus</th>
+        <th>Tila</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Listataan pelit tähän -->
+      {% for customer in customers %}
+        <tr>
+          <td>{{customer.sukunimi}}</a></td>
+          <td>{{customer.etunimi}}</td>
+          <td>{{customer.henkilotunnus}}</td>
+          <td>{{customer.id}}</td>
+          <td><label class="label label-danger">{{customer.tila}}</label></td>
+          <th><a class="btn btn-default btn-sm" href="#">Avaa</a></th>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

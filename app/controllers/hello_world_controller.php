@@ -1,7 +1,5 @@
 <?php
 
-  require 'app/models/customer.php';
-
   class HelloWorldController extends BaseController{
 
     public static function index(){
