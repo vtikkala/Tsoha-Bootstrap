@@ -1,5 +1,7 @@
 <?php
 
+  require 'app/models/customer.php';
+
   class HelloWorldController extends BaseController{
 
     public static function index(){
@@ -25,8 +27,10 @@
     }
 
     public static function sandbox(){
-      // Testaa koodiasi täällä
-      // echo 'Hello World!';
-      View::make('helloworld.html');
+      $meikalainen = Customer::find(1);
+      $asiakkaat = Customer::all();
+
+      Kint::dump($asiakkaat);
+      Kint::dump($meikalainen);
     }
   }
