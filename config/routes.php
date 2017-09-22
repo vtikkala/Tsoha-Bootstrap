@@ -8,9 +8,19 @@
     CustomersController::index();
   });
 
+  $routes->post('/customer', function() {
+    CustomersController::store();
+  });
+
+  $routes->get('/customer/new', function() {
+    CustomersController::create();
+  });
+
+
   $routes->get('/customer/:id', function($id) {
     CustomersController::show($id);
   });
+  
 
   $routes->get('/login', function() {
     HelloWorldController::login();

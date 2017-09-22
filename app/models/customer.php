@@ -23,7 +23,7 @@
           'id' => $row['id'],
           'henkilotunnus' => $row['henkilotunnus'],
           'sukunimi' => $row['sukunimi'],
-          'etunimi' => $row['sukunimi'],
+          'etunimi' => $row['etunimi'],
           'katuosoite' => $row['katuosoite'],
           'postinumero' => $row['postinumero'],
           'postitoimipaikka' => $row['postitoimipaikka'],
@@ -56,9 +56,19 @@
 
         return $customer;
       }
+    }
 
+    public function save() {
+      $query = DB::connection()->prepare('INSERT INTO asiakas (henkilotunnus, sukunimi, etunimi, katuosoite,
+      postinumero, postitoimipaikka, puhelinnumero, tila) VALUES (:henkilotunnus, :sukunimi, :etunimi,
+      :katuosoite, :postinumero, :postitoimipaikka, :puhelinnumero, :tila) RETURNING id');
 
+      $query->execute(array('henkilotunnus' => $this->henkilotunnus, 'sukunimi' => $this->sukunimi,
+      'etunimi' => $this->etunimi, 'katuosoite' => $this->katuosoite, 'postinumero' => $this->postinumero,
+      'postitoimipaikka' => $this->postitoimipaikka, 'puhelinnumero' => $this->puhelinnumero, 'tila' => $this->tila));
 
+      $row = $query->fetch();
+      $this->id = $row['id'];
     }
 
 
