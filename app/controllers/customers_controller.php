@@ -50,7 +50,7 @@
     public static function update($id) {
       $params = $_POST;
 
-      $attributes = array(
+      $customer = new Customer(array(
         'id' => $id,
         'henkilotunnus' => $params['henkilotunnus'],
         'sukunimi' => $params['sukunimi'],
@@ -60,11 +60,11 @@
         'postitoimipaikka' => $params['postitoimipaikka'],
         'puhelinnumero' => $params['puhelinnumero'],
         'tila' => 'aktiivi'
-      );
+      ));
 
-      $attributes->savechanges();
+      $customer->savechanges();
 
-      Redirect::to('/customer/' . $attributes->id, array('message' => 'Asiakkaan tiedot päivitetty rekisteriin.'));
+      Redirect::to('/customer' , array('message' => 'Asiakkaan tiedot päivitetty rekisteriin.'));
     }
 
     // Asiakkaan poistaminen
@@ -76,19 +76,19 @@
     public static function delete($id) {
       $params = $_POST;
 
-      $attributes = array(
+      $customer = new Customer(array(
         'id' => $id,
-        'henkilotunnus' => $params['henkilotunnus'],
-        'sukunimi' => $params['sukunimi'],
-        'etunimi' => $params['etunimi'],
-        'katuosoite' => $params['katuosoite'],
-        'postinumero' => $params['postinumero'],
-        'postitoimipaikka' => $params['postitoimipaikka'],
-        'puhelinnumero' => $params['puhelinnumero'],
-        'tila' => $params['tila']
-      );
+        //'henkilotunnus' => $params['henkilotunnus'],
+        //'sukunimi' => $params['sukunimi'],
+        //'etunimi' => $params['etunimi'],
+        //'katuosoite' => $params['katuosoite'],
+        //'postinumero' => $params['postinumero'],
+        //'postitoimipaikka' => $params['postitoimipaikka'],
+        //'puhelinnumero' => $params['puhelinnumero'],
+        //'tila' => $params['tila']
+      ));
 
-      $attributes->delete();
+      $customer->delete();
 
       Redirect::to('/customer', array('message' => 'Asiakkaan tiedot poistettu.'));
     }
