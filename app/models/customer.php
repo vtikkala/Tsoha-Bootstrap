@@ -71,6 +71,30 @@
       $this->id = $row['id'];
     }
 
+    public function update() {
+      $query = DB::connection()->prepare('UPDATE asiakas (id, henkilotunnus, sukunimi, etunimi, katuosoite, postinumero, postitoimipaikka,
+      puhelinnumero, tila) VALUES (:id, :henkilotunnus, :sukunimi, :etunimi, :katuosoite, :postinumero, :postitoimipaikka, :puhelinnumero,
+      :tila) RETURNING id');
 
+      $query->execute(array('id' => $this->id, 'henkilotunnus' => $this->henkilotunnus, 'sukunimi' => $this->sukunimi,
+      'etunimi' => $this->etunimi, 'katuosoite' => $this->katuosoite, 'postinumero' => $this->postinumero,
+      'postitoimipaikka' => $this->postitoimipaikka, 'puhelinnumero' => $this->puhelinnumero, 'tila' => $this->tila));
+
+      $row = $query->fetch();
+      $this->id = $row['id'];
+    }
+
+    public function delete() {
+      $query = DB::connection()->prepare('DELETE asiakas (id, henkilotunnus, sukunimi, etunimi, katuosoite, postinumero, postitoimipaikka,
+      puhelinnumero, tila) VALUES (:id, :henkilotunnus, :sukunimi, :etunimi, :katuosoite, :postinumero, :postitoimipaikka, :puhelinnumero,
+      :tila) RETURNING id');
+
+      $query->execute(array('id' => $this->id, 'henkilotunnus' => $this->henkilotunnus, 'sukunimi' => $this->sukunimi,
+      'etunimi' => $this->etunimi, 'katuosoite' => $this->katuosoite, 'postinumero' => $this->postinumero,
+      'postitoimipaikka' => $this->postitoimipaikka, 'puhelinnumero' => $this->puhelinnumero, 'tila' => $this->tila));
+
+      $row = $query->fetch();
+      $this->id = $row['id'];
+    }
 
   }
