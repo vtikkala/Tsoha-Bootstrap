@@ -46,7 +46,7 @@
           'id' => $row['id'],
           'henkilotunnus' => $row['henkilotunnus'],
           'sukunimi' => $row['sukunimi'],
-          'etunimi' => $row['sukunimi'],
+          'etunimi' => $row['etunimi'],
           'katuosoite' => $row['katuosoite'],
           'postinumero' => $row['postinumero'],
           'postitoimipaikka' => $row['postitoimipaikka'],
@@ -71,30 +71,19 @@
       $this->id = $row['id'];
     }
 
-    public function update() {
-      $query = DB::connection()->prepare('UPDATE asiakas (id, henkilotunnus, sukunimi, etunimi, katuosoite, postinumero, postitoimipaikka,
-      puhelinnumero, tila) VALUES (:id, :henkilotunnus, :sukunimi, :etunimi, :katuosoite, :postinumero, :postitoimipaikka, :puhelinnumero,
-      :tila) RETURNING id');
+    public function savechanges() {
+      $query = DB::connection()->prepare('UPDATE asiakas SET henkilotunnus = :henkilotunnus, sukunimi = :sukunimi, etunimi = :etunimi,
+      katuosoite = :katuosoite, postinumero = :postinumero, postitoimipaikka = :postitoimipaikka, puhelinnumero = :puhelinnumero,
+      tila = :tila WHERE id = :id');
 
       $query->execute(array('id' => $this->id, 'henkilotunnus' => $this->henkilotunnus, 'sukunimi' => $this->sukunimi,
       'etunimi' => $this->etunimi, 'katuosoite' => $this->katuosoite, 'postinumero' => $this->postinumero,
       'postitoimipaikka' => $this->postitoimipaikka, 'puhelinnumero' => $this->puhelinnumero, 'tila' => $this->tila));
-
-      $row = $query->fetch();
-      $this->id = $row['id'];
     }
 
     public function delete() {
-      $query = DB::connection()->prepare('DELETE asiakas (id, henkilotunnus, sukunimi, etunimi, katuosoite, postinumero, postitoimipaikka,
-      puhelinnumero, tila) VALUES (:id, :henkilotunnus, :sukunimi, :etunimi, :katuosoite, :postinumero, :postitoimipaikka, :puhelinnumero,
-      :tila) RETURNING id');
-
-      $query->execute(array('id' => $this->id, 'henkilotunnus' => $this->henkilotunnus, 'sukunimi' => $this->sukunimi,
-      'etunimi' => $this->etunimi, 'katuosoite' => $this->katuosoite, 'postinumero' => $this->postinumero,
-      'postitoimipaikka' => $this->postitoimipaikka, 'puhelinnumero' => $this->puhelinnumero, 'tila' => $this->tila));
-
-      $row = $query->fetch();
-      $this->id = $row['id'];
+      $query = DB::connection()->prepare('DELETE FROM asiakas WHERE id = :id');
+      $query->execute(array('id' => $this->id));
     }
 
   }

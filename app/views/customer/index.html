@@ -48,7 +48,7 @@
           <td>{{customer.henkilotunnus}}</td>
           <td>{{customer.id}}</td>
           <td><label class="label label-danger">{{customer.tila}}</label></td>
-          <th><a class="btn btn-default btn-sm" href="#">Avaa</a></th>
+          <th><a class="btn btn-default btn-sm" href="{{base_path}}/customer/{{customer.id}}">Avaa</a></th>
         </tr>
       {% endfor %}
     </tbody>

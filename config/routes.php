@@ -20,7 +20,7 @@
     CustomersController::show($id);
   });
 
-  $routes->get('/customer/:id/edit', function($id)) {
+  $routes->get('/customer/:id/edit', function($id) {
     CustomersController::edit($id);
   });
 
@@ -28,9 +28,13 @@
     CustomersController::update($id);
   });
 
+  $routes->get('/customer/:id/destroy', function($id) {
+    CustomersController::destroy($id);
+  });
+
   $routes->post('/customer/:id/destroy', function($id) {
     CustomersController::delete($id);
-  })
+  });
 
   $routes->get('/login', function() {
     HelloWorldController::login();

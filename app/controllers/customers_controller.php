@@ -14,10 +14,10 @@
 
 
     public static function show($id) {
-      $customer = Customer::find($id);
+      $customers = Customer::find($id);
 
       // Tätä vielä selvitettävä!
-      View::make('customer/show.html');
+      View::make('customer/show.html', array('customer' => $customers));
     }
 
     public static function store() {
@@ -42,8 +42,8 @@
 
     // Asiakkaan muokaaminen (lomakkeen esittäminen)
     public static function edit($id) {
-      $customer = Customer::find($id);
-      View::make('customer/edit.html', array('attributes' => $customer));
+      $customers = Customer::find($id);
+      View::make('customer/edit.html', array('customer' => $customers));
     }
 
     // Asiakkaan muokkaaminen (lomakkeen käsittely)
@@ -59,15 +59,20 @@
         'postinumero' => $params['postinumero'],
         'postitoimipaikka' => $params['postitoimipaikka'],
         'puhelinnumero' => $params['puhelinnumero'],
-        'tila' => $params['tila']
+        'tila' => 'aktiivi'
       );
 
-      $attributes->update();
+      $attributes->savechanges();
 
-      Redirect::to('/customer/' . $customer->id, array('message' => 'Asiakkaan tiedot päivitetty rekisteriin.'));
+      Redirect::to('/customer/' . $attributes->id, array('message' => 'Asiakkaan tiedot päivitetty rekisteriin.'));
     }
 
     // Asiakkaan poistaminen
+    public static function destroy($id) {
+      $customers = Customer::find($id);
+      View::make('customer/destroy.html', array('customer' => $customers));
+    }
+
     public static function delete($id) {
       $params = $_POST;
 
@@ -84,6 +89,8 @@
       );
 
       $attributes->delete();
+
+      Redirect::to('/customer', array('message' => 'Asiakkaan tiedot poistettu.'));
     }
 
   }
