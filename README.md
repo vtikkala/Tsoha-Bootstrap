@@ -1,5 +1,20 @@
 # Tietokantasovelluksen esittelysivu
 
+## Tilanne viikon 5 jälkeen:
+
+Valitettavasti en ole saanut edistetty sovellusta ja dokumentaatiota siinä tahdissa kun kurssin aikataulu
+etenee. Taistelin nyt pari viikkoa kirjautumisen/sessioiden kanssa ja sain sen viimein alustavasti toimimaan
+(ei toimi siis vielä täydellisesti). Joudun tekemään jonkin verran refaktorointia suunnitelmaan seuraavan viikon
+aikana, kun kurssin edetessä tekemiseen tulee uusia näkökulmia. Joudun mm. toteuttamaan kokonaan erillisen kirjautumisen
+"asiakkaalle" ja "toimihenkilölle". Nyt sain valmiiksi tuon asiakkaan kirjautumisen. Uskon kuitenkin, että ensi viikon
+demoon saan ihan hyvin toimivan sovelluksen, missä asiakkaan kirjautuminen sisään/ulos toimii sujuvasti sekä asiakas pääsee näkemään ja muuttamaan tietojaan. Lopulliseen palautukseen lisään myös toimihenkilön tarvitsemat toiminnallisuudet ja tietenkin kattavan dokumentaation.
+
+Asiakkaana pääsee nyt kirjautumaan seuraavasta linkistä:
+* [Asiakkaan kirjautuminen](http://vtikkala.users.cs.helsinki.fi/rekisteri/user/login)s
+
+Käyttäjätunnus: testi1
+Salasana: salasana1
+
 Yleisiä linkkejä:
 
 * [Linkki sovellukseeni](http://vtikkala.users.cs.helsinki.fi/rekisteri/)

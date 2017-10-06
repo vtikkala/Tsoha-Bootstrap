@@ -27,18 +27,18 @@
           'tila' => $row['tila']
         ));
 
-        return $user;
+        //return $user;
 
-        /*
+
         if ($user) {
-          $user_name = $user['kayttajatunnus'];
-          $user_password = $user['salasana'];
+          $user_name = $user->kayttajatunnus;
+          $user_password = $user->salasana;
 
           if ($kayttajatunnus == $user_name and $salasana == $user_password) {
             return $user;
           }
         }
-        */
+
       }
     }
 
