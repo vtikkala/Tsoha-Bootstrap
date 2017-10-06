@@ -1,7 +1,7 @@
 <?php
 
-  $routes->get('/', function() {
-    HelloWorldController::index();
+  $routes->get('/:kayttajatunnus', function($kayttajatunnus) {
+    UserController::index($kayttajatunnus);
   });
 
   $routes->get('/customer', function() {
@@ -36,8 +36,12 @@
     CustomersController::delete($id);
   });
 
-  $routes->get('/login', function() {
-    HelloWorldController::login();
+  $routes->get('/user/login', function() {
+    UserController::login();
+  });
+
+  $routes->post('/user/login', function() {
+    UserController::handle_login();
   });
 
   $routes->get('/search', function() {
