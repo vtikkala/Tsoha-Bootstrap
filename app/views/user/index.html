@@ -1,38 +1,64 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Asiakkaan verkkopalvelu näkymä</h1>
+  <h1>Verkkopalvelu</h1>
 
   <div class="alert alert-success">
     {{message}}
   </div>
 
-  <h4>Asiakkaan tiedot:</h4>
+  <h4>Käyttäjätietosi:</h4>
+  <ul>
+    <li><strong>Tila: </strong> <label class="label label-danger">{{user.tila}}</label></li>
+    <li><strong>ID: </strong>{{user.id}}</li>
+    <li><strong>Käyttäjätunnus: </strong>{{user.kayttajatunnus}}</li>
+    <li><strong>Salasana: </strong>*</li>
+  </ul>
+  <button type="submit" class="btn btn-default">Vaihda salasana</button>
+  <br></br>
 
+  <h4>Asiakastietosi:</h4>
+  <ul>
+    <li><strong>Tila: </strong> <label class="label label-danger">{{customer.tila}}</label></li>
+    <li><strong>Asiakastunnus: </strong>{{customer.id}}</li>
+    <li><strong>Henkilötunnus: </strong>{{customer.henkilotunnus}}</li>
+    <li><strong>Sukunimi: </strong>{{customer.sukunimi}}</li>
+    <li><strong>Etunimi: </strong>{{customer.etunimi}}</li>
+    <li><strong>Katuosoite: </strong>{{customer.katuosoite}}</li>
+    <li><strong>Postinumero: </strong>{{customer.postinumero}}</li>
+    <li><strong>Postitoimipaikka: </strong>{{customer.postitoimipaikka}}</li>
+    <li><strong>Puhelinnumero: </strong> {{customer.puhelinnumero}}</li>
+  </ul>
+  <button type="submit" class="btn btn-default">Muokkaa asiakastietoja</button>
+  <br></br>
+
+  <h4>Vakuutussopimuksesi: </h4>
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
-        <th>Sukunimi</th>
-        <th>Etunimi</th>
-        <th>Henkilötunnus</th>
-        <th>Asiakastunnus</th>
-        <th>Tila</th>
-        <th></th>
-      </tr>
-    </thead>
-  </table>
-
-  <h4>Asiakkan sopimukset: </h4>
-
-  <table class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th>Tuote</th>
+        <th>Sopimustunnus</th>
+        <th>Vakuutuksenottaja</th>
+        <th>Vakuutettu</th>
         <th>Turvan suuruus</th>
         <th>Vakuutusmaksu</th>
         <th>Tila</th>
         <th></th>
       </tr>
     </thead>
+
+    <tbody>
+      <!-- Listataan pelit tähän -->
+      {% for policy in policies %}
+        <tr>
+          <td>{{policy.sopimustunnus}}</a></td>
+          <td>{{user.find_name(policy.vakuutuksenottaja)}}</td>
+          <td>{{user.find_name(policy.vakuutettu1)}}</td>
+          <td>{{policy.turvansuuruus}}</td>
+          <td>{{policy.vakuutusmaksu}}</td>
+          <td><label class="label label-danger">{{policy.tila}}</label></td>
+          <th><a class="btn btn-default btn-sm" href="{{base_path}}/customer/{{customer.id}}">Avaa</a></th>
+        </tr>
+      {% endfor %}
+    </tbody>
   </table>
 
 {% endblock %}
