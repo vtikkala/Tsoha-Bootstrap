@@ -30,4 +30,27 @@
       }
     }
 
+    public static function passwd($kayttajatunnus) {
+      $user = User::find($kayttajatunnus);
+      View::make('user/passwd.html', array('user' => $user));
+    }
+
+    public static function change_passwd($kayttajatunnus) {
+      $params = $_POST;
+      $user_old = User::find($kayttajatunnus);
+      $user_new = User::authenticate($kayttajatunnus, $params['old_password']);
+
+      if(!$user_new) {
+        View::make('user/passwd.html', array('error' => 'Väärä käyttäjätunnus tai salasana!',
+          'user' => $user_old));
+      } else {
+        User::update_passwd($kayttajatunnus, $params['new_password']);
+
+        Redirect::to('/' . $user->kayttajatunnus, array('message' => 'Salasana päivitetty'));
+
+      }
+    }
+
+
+
   }

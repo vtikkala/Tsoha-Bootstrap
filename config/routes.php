@@ -28,6 +28,15 @@
     CustomersController::update($id);
   });
 
+  $routes->get('/customer/:id/cust_edit', function($id) {
+    CustomersController::cust_edit($id);
+  });
+
+  $routes->post('/customer/:id/cust_edit', function($id) {
+    CustomersController::cust_update($id);
+  });
+
+
   $routes->get('/customer/:id/destroy', function($id) {
     CustomersController::destroy($id);
   });
@@ -42,6 +51,18 @@
 
   $routes->post('/user/login', function() {
     UserController::handle_login();
+  });
+
+  $routes->get('/user/:kayttajatunnus/passwd', function($kayttajatunnus) {
+    UserController::passwd($kayttajatunnus);
+  });
+
+  $routes->post('user/:kayttajatunnus/passwd', function($kayttajatunnus) {
+    UserController::change_passwd($kayttajatunnus);
+  });
+
+  $routes->get('/policy/:id', function($id) {
+    PolicyController::show($id);
   });
 
   $routes->get('/search', function() {

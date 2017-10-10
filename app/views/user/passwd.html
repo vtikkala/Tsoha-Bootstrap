@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Vaihda salasana</h1>
+
+  <div class="alert alert-success">
+    {{message}}
+  </div>
+
+  <div class="alert alert-danger">
+    {{error}}
+  </div>
+
+  <p><strong>Kayttajatunnus:</strong> {{user.kayttajatunnus}}</p>
+
+  <form method="post" action="{{base_path}}/user/{{user.kayttajatunnus}}/passwd">
+    <div class="form-group">
+      <label>Vanha salasana</label>
+      <input class="form-control" name="old_password" values="{{old_password}}" type="password">
+    </div>
+
+    <div class="form-group">
+      <label>Uusi salasana</label>
+      <input class="form-control" name="new_password" values="{{new_password}}" type="password">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Vaihda salasana</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Asiakastietojen muokkaaminen</h1>
+  <form method="post" action="{{base_path}}/customer/{{customer.id}}/cust_edit">
+    <div class="alert alert-success">
+      {{message}}
+    </div>
+    <div class="form-group">
+      <label>Sukunimi</label>
+      <input name="sukunimi" class="form-control" value="{{customer.sukunimi}}" type="text">
+    </div>
+    <div class="form-group">
+      <label>Etunimi</label>
+      <input name="etunimi" class="form-control" value="{{customer.etunimi}}" type="text">
+    </div>
+    <div class="form-group">
+      <label>Henkilötunnus</label>
+      <input name="henkilotunnus" class="form-control" value="{{customer.henkilotunnus}}" type="text">
+    </div>
+    <div class="form-group">
+      <label>Katuosoite</label>
+      <input name="katuosoite" class="form-control" value="{{customer.katuosoite}}" type="text">
+    </div>
+    <div class="form-group">
+      <label>Postinumero</label>
+      <input name="postinumero" class="form-control" value="{{customer.postinumero}}" type="text">
+    </div>
+    <div class="form-group">
+      <label>Postitoimipaikka</label>
+      <input name="postitoimipaikka" class="form-control" value="{{customer.postitoimipaikka}}" type="text">
+    </div>
+    <div class="form-group">
+      <label>Puhelinnumero</label>
+      <input name="puhelinnumero" class="form-control" value="{{customer.puhelinnumero}}" vtype="text">
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Tallenna</button>
+      <a href="{{base_path}}/{{customer.id}}" class="btn btn-default">Palaa</button></a>
+    </div>
+  </form>
+{% endblock %}

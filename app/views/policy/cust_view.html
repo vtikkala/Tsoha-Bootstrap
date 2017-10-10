@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Sopimuksen tiedot</h1>
+  <form>
+    <div class="alert alert-success">
+      {{message}}
+    </div>
+
+    <ul>
+      <li><strong>Tuote: </strong>{{policy.tuotetunnus}}</li>
+      <li><strong>Sopimustunnus: </strong>{{policy.sopimustunnus}}</li>
+      <li><strong>Vakuutuksenottaja: </strong>{{policy.vakuutuksenottaja}}</li>
+      <li><strong>1. vakuutettu: </strong>{{policy.vakuutettu1}}</li>
+      <li><strong>2. vakuutettu: </strong>{{policy.vakuutettu2}}</li>
+      <li><strong>Turvan suuruus: </strong>{{policy.turvansuuruus}}</li>
+      <li><strong>Vakuutusmaksu: </strong>{{policy.vakuutusmaksu}}</li>
+      <li><strong>Tila: </strong> <label class="label label-danger">{{policy.tila}}</label></li>
+    </ul>
+
+    <div class="form-group">
+      <a href="{{base_path}}/policy/{{policy.id}}/edit" class="btn btn-default">Muokkaa</button></a>
+      <a href="{{base_path}}/customer/{{customer.id}}/destroy" class="btn btn-default">Päätä sopimus</button></a>
+      <a href="{{base_path}}/customer" class="btn btn-default">Palaa</button></a>
+    </div>
+  </form>
+{% endblock %}

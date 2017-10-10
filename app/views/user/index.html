@@ -13,7 +13,7 @@
     <li><strong>Käyttäjätunnus: </strong>{{user.kayttajatunnus}}</li>
     <li><strong>Salasana: </strong>*</li>
   </ul>
-  <button type="submit" class="btn btn-default">Vaihda salasana</button>
+  <th><a class="btn btn-default btn-sm" href="{{base_path}}/user/{{user.kayttajatunnus}}/passwd">Vaihda salasana</a></th>
   <br></br>
 
   <h4>Asiakastietosi:</h4>
@@ -28,16 +28,16 @@
     <li><strong>Postitoimipaikka: </strong>{{customer.postitoimipaikka}}</li>
     <li><strong>Puhelinnumero: </strong> {{customer.puhelinnumero}}</li>
   </ul>
-  <button type="submit" class="btn btn-default">Muokkaa asiakastietoja</button>
+  <th><a class="btn btn-default btn-sm" href="{{base_path}}/customer/{{customer.id}}/cust_edit">Muokkaa</a></th>
   <br></br>
 
   <h4>Vakuutussopimuksesi: </h4>
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
+        <th>Tuote</th>
         <th>Sopimustunnus</th>
         <th>Vakuutuksenottaja</th>
-        <th>Vakuutettu</th>
         <th>Turvan suuruus</th>
         <th>Vakuutusmaksu</th>
         <th>Tila</th>
@@ -49,13 +49,13 @@
       <!-- Listataan pelit tähän -->
       {% for policy in policies %}
         <tr>
-          <td>{{policy.sopimustunnus}}</a></td>
+          <td>{{policy.tuotetunnus}}</td>
+          <td>{{policy.sopimustunnus}}</td>
           <td>{{user.find_name(policy.vakuutuksenottaja)}}</td>
-          <td>{{user.find_name(policy.vakuutettu1)}}</td>
           <td>{{policy.turvansuuruus}}</td>
           <td>{{policy.vakuutusmaksu}}</td>
           <td><label class="label label-danger">{{policy.tila}}</label></td>
-          <th><a class="btn btn-default btn-sm" href="{{base_path}}/customer/{{customer.id}}">Avaa</a></th>
+          <th><a class="btn btn-default btn-sm" href="{{base_path}}/policy/{{policy.id}}">Avaa</a></th>
         </tr>
       {% endfor %}
     </tbody>

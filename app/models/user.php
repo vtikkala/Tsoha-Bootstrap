@@ -84,6 +84,22 @@
       }
     }
 
+    // Metodi palauttaa asikastunnuksen
+    public static function find_username($id) {
+      $query = DB::connection()->prepare('SELECT kayttajatunnus FROM kayttaja
+        WHERE id = :id LIMIT 1');
+      $query->execute(array('id' => $id));
+      $row = $query->fetch();
+
+      if ($row) {
+        $user = new User(array(
+          'kayttajatunnus' => $row['kayttajatunnus']
+        ));
+      }
+
+      return $user->kayttajatunnus;
+    }
+
     // Metodi palauttaa asiakkaan nimen
     public static function find_name($asiakastunnus) {
       $query = DB::connection()->prepare('SELECT sukunimi, etunimi FROM asiakas
@@ -101,6 +117,13 @@
 
         return $customer_name;
       }
+    }
+
+    // Salasanan päivitys
+    public static function update_passwd($kayttajatunnus, $salasana) {
+      $query = DB::connection()->prepare('UPDATE kayttaja SET salasana = :salasana
+        WHERE kayttajatunnus = :kayttajatunnus');
+      $query->execute(array('salasana' => $salasana, 'kayttajatunnus' => $kayttajatunnus));
     }
 
 

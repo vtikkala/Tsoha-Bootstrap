@@ -16,7 +16,6 @@
     public static function show($id) {
       $customers = Customer::find($id);
 
-      // Tätä vielä selvitettävä!
       View::make('customer/show.html', array('customer' => $customers));
     }
 
@@ -66,6 +65,35 @@
 
       Redirect::to('/customer' , array('message' => 'Asiakkaan tiedot päivitetty rekisteriin.'));
     }
+
+    // Asiakkaan muokaaminen (lomakkeen esittäminen), asiakas muokkaa
+    public static function cust_edit($id) {
+      $customers = Customer::find($id);
+      View::make('customer/cust_edit.html', array('customer' => $customers));
+    }
+
+    // Asiakkaan muokkaaminen (lomakkeen käsittely), asiakas muokkaa
+    public static function cust_update($id) {
+      $params = $_POST;
+
+      $customer = new Customer(array(
+        'id' => $id,
+        'henkilotunnus' => $params['henkilotunnus'],
+        'sukunimi' => $params['sukunimi'],
+        'etunimi' => $params['etunimi'],
+        'katuosoite' => $params['katuosoite'],
+        'postinumero' => $params['postinumero'],
+        'postitoimipaikka' => $params['postitoimipaikka'],
+        'puhelinnumero' => $params['puhelinnumero'],
+        'tila' => 'aktiivi'
+      ));
+
+      $customer->savechanges();
+
+      Redirect::to('/' . User::find_username($_SESSION['user']), array('message' => 'Asiakastietosi päivitetty rekisteriin.'));
+    }
+
+
 
     // Asiakkaan poistaminen
     public static function destroy($id) {
