@@ -18,8 +18,6 @@
 
   <h4>Asiakastietosi:</h4>
   <ul>
-    <li><strong>Tila: </strong> <label class="label label-danger">{{customer.tila}}</label></li>
-    <li><strong>Asiakastunnus: </strong>{{customer.id}}</li>
     <li><strong>Henkilötunnus: </strong>{{customer.henkilotunnus}}</li>
     <li><strong>Sukunimi: </strong>{{customer.sukunimi}}</li>
     <li><strong>Etunimi: </strong>{{customer.etunimi}}</li>
@@ -49,12 +47,12 @@
       <!-- Listataan pelit tähän -->
       {% for policy in policies %}
         <tr>
-          <td>{{policy.tuotetunnus}}</td>
+          <td>{{policy.tuotenimi}}</td>
           <td>{{policy.sopimustunnus}}</td>
-          <td>{{user.find_name(policy.vakuutuksenottaja)}}</td>
+          <td>{{policy.sukunimi ~ " " ~ policy.etunimi}}</td>
           <td>{{policy.turvansuuruus}}</td>
           <td>{{policy.vakuutusmaksu}}</td>
-          <td><label class="label label-danger">{{policy.tila}}</label></td>
+          <td>{{policy.tila}}</td>
           <th><a class="btn btn-default btn-sm" href="{{base_path}}/policy/{{policy.id}}">Avaa</a></th>
         </tr>
       {% endfor %}

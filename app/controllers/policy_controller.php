@@ -8,5 +8,11 @@
       View::make('policy/cust_view.html', array('policy' => $policies));
     }
 
+    public static function edit($id) {
+      $policies = Policy::find($id);
+
+      View::make('policy/cust_edit.html', array('policy' => $policies));
+    }
+
 
   }

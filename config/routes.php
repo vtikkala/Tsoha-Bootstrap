@@ -65,9 +65,14 @@
     PolicyController::show($id);
   });
 
-  $routes->get('/search', function() {
-    HelloWorldController::search();
+  $routes->get('/policy/:id/edit', function($id) {
+    PolicyController::edit($id);
   });
+
+  $routes->post('/policy/:id/edit', function($id) {
+    PolicyController::update($id);
+  });
+
 
   /*
 

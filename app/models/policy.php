@@ -4,7 +4,7 @@
 
     // Attribuutit
     public $id, $sopimustunnus, $tuotetunnus, $vakuutuksenottaja, $vakuutettu1,
-      $vakuutettu2, $tila, $turvansuuruus, $vakuutusmaksu;
+      $vakuutettu2, $tila, $turvansuuruus, $vakuutusmaksu, $tuotenimi, $sukunimi, $etunimi;
 
     // Konstruktori
     public function __construct($attributes) {
@@ -27,7 +27,6 @@
           'vakuutuksenottaja' => $row['vakuutuksenottaja'],
           'vakuutettu1' => $row['vakuutettu1'],
           'vakuutettu2' => $row['vakuutettu2'],
-          'tila' => $row['tila'],
           'turvansuuruus' => $row['turvansuuruus'],
           'vakuutusmaksu' => $row['vakuutusmaksu']
         ));
@@ -35,6 +34,33 @@
         return $policies;
       }
     }
+
+    // Metodi joka palauttaa tiedot asiakkaan sopimuksista
+    public static function all_customer($asiakastunnus) {
+      $query = DB::connection()->prepare('SELECT sopimus.id, tuote.tuotenimi, sopimus.sopimustunnus,
+        asiakas.sukunimi, asiakas.etunimi, sopimus.turvansuuruus, sopimus.vakuutusmaksu, sopimus.tila FROM sopimus LEFT JOIN asiakas
+        ON sopimus.vakuutuksenottaja = asiakas.id LEFT JOIN tuote ON sopimus.tuotetunnus = tuote.tuotetunnus WHERE sopimus.vakuutuksenottaja
+        = :asiakastunnus');
+      $query->execute(array('asiakastunnus' => $asiakastunnus));
+      $rows = $query->fetchAll();
+      $policies = array();
+
+      foreach ($rows as $row) {
+        $policies[] = new Policy(array(
+          'id' => $row['id'],
+          'tuotenimi' => $row['tuotenimi'],
+          'sopimustunnus' => $row['sopimustunnus'],
+          'sukunimi' => $row['sukunimi'],
+          'etunimi' => $row['etunimi'],
+          'turvansuuruus' => $row['turvansuuruus'],
+          'vakuutusmaksu' => $row['vakuutusmaksu'],
+          'tila' => $row['tila']
+        ));
+
+        return $policies;
+      }
+    }
+
 
     // Metodi palauttaa halutun sopimuksen tiedot
     public static function find($id) {
@@ -85,6 +111,7 @@
 
         return $policy;
       }
+
     }
 
   }

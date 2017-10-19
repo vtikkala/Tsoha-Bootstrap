@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Sopimuksen tiedot</h1>
+  <form>
+
+  <form method="post" action="{{base_path}}/policy/{{policy.id}}/edit">
+    <div class="alert alert-success">
+      {{message}}
+    </div>
+    <div class="form-group">
+      <label>Tuote</label>
+      <input name="tuote" class="form-control" value="{{policy.tuotetunnus}}" type="text" disabled>
+    </div>
+    <div class="form-group">
+      <label>Sopimustunnus</label>
+      <input name="sopimustunnus" class="form-control" value="{{policy.sopimustunnus}}" type="text" disabled>
+    </div>
+    <div class="form-group">
+      <label>Vakuutuksenottaja</label>
+      <input name="vakuutuksenottaja" class="form-control" value="{{policy.vakuutuksenottaja}}" type="text" disabled>
+    </div>
+    <div class="form-group">
+      <label>1. vakuutettu</label>
+      <input name="vakuutettu1" class="form-control" value="{{policy.vakuutettu1}}" type="text" disabled>
+    </div>
+    <div class="form-group">
+      <label>2. vakuutettu</label>
+      <input name="vakuutettu2" class="form-control" value="{{policy.vakuutettu2}}" type="text" disabled>
+    </div>
+    <div class="form-group">
+      <label>Turvan suuruus</label>
+      <input name="turvansuuruus" class="form-control" value="{{policy.turvansuuruus}}" type="text">
+    </div>
+    <div class="form-group">
+      <label>Vakuutusmaksu</label>
+      <input name="vakuutusmaksu" class="form-control" value="{{policy.vakuutusmaksu}}" vtype="text">
+    </div>
+    <div class="form-group">
+      <label>Tila</label>
+      <input name="tila" class="form-control" value="{{policy.tila}}" vtype="text" disabled>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Tallenna</button>
+      <a href="{{base_path}}/policy/{{policy.id}}" class="btn btn-default">Palaa</button></a>
+    </div>
+  </form>
+{% endblock %}

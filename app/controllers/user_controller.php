@@ -6,7 +6,7 @@
       $users = User::find($kayttajatunnus);
       $asiakastunnus = $users->asiakastunnus;
       $customers = User::find_customer($asiakastunnus); // hakee asiakkaan tiedot
-      $policies = Policy::all($asiakastunnus);
+      $policies = Policy::all_customer($asiakastunnus); // hakee asiakkaan sopimukset
 
       View::make('user/index.html', array('user' => $users, 'customer' => $customers, 'policies' => $policies)); // tehdään näkymä, josta käyttäjä näkee sopimukset
     }
