@@ -1,12 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Sopimuksen tiedot</h1>
+  <h1>Muokkaa sopimusta</h1>
   <form>
 
-  <form method="post" action="{{base_path}}/policy/{{policy.id}}/edit">
-    <div class="alert alert-success">
-      {{message}}
-    </div>
+    <form method="post" action="{{base_path}}/policy/{{policy.id}}/cust_edit">
     <div class="form-group">
       <label>Tuote</label>
       <input name="tuote" class="form-control" value="{{policy.tuotetunnus}}" type="text" disabled>
@@ -42,7 +39,7 @@
 
     <div class="form-group">
       <button type="submit" class="btn btn-default">Tallenna</button>
-      <a href="{{base_path}}/policy/{{policy.id}}" class="btn btn-default">Palaa</button></a>
+      <a href="javascript:history.back()" class="btn btn-default">Palaa</button></a>
     </div>
   </form>
 {% endblock %}

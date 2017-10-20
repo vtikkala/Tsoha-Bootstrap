@@ -2,18 +2,22 @@
 {% block content %}
   <h1>Kirjaudu sisään</h1>
 
-  <div class="alert alert-success">
-    {{message}}
-  </div>
+  {% if message %}
+    <div class="alert alert-success">
+      {{message}}
+    </div>
+  {% endif %}
 
-  <div class="alert alert-danger">
-    {{error}}
-  </div>
+  {% if error %}
+    <div class="alert alert-danger">
+      {{error}}
+    </div>
+  {% endif %}
 
   <form method="post" action="{{base_path}}/user/login">
     <div class="form-group">
       <label>Käyttäjätunnus</label>
-      <input class="form-control" name="username" values="{{username}}" type="text">
+      <input class="form-control" name="username" value="{{kayttajatunnus}}" type="text">
     </div>
 
     <div class="form-group">

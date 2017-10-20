@@ -2,13 +2,21 @@
 {% block content %}
   <h1>Asiakkaan tiedot</h1>
   <form>
-    <div class="alert alert-success">
-      {{message}}
-    </div>
+    {% if message %}
+      <div class="alert alert-success">
+        {{message}}
+      </div>
+    {% endif %}
+
+    {% if error %}
+      <div class="alert alert-danger">
+        {{error}}
+      </div>
+    {% endif %}
 
     <ul>
       <li><strong>Asiakastunnus: </strong>{{customer.id}}</li>
-      <li><strong>Tila: </strong> <label class="label label-danger">{{customer.tila}}</label></li>
+      <li><strong>Tila: </strong> {{customer.tila}}</li>
       <li><strong>Henkilötunnus: </strong>{{customer.henkilotunnus}}</li>
       <li><strong>Sukunimi: </strong>{{customer.sukunimi}}</li>
       <li><strong>Etunimi: </strong>{{customer.etunimi}}</li>
@@ -19,9 +27,40 @@
     </ul>
 
     <div class="form-group">
-      <a href="{{base_path}}/customer/{{customer.id}}/edit" class="btn btn-default">Muokkaa</button></a>
-      <a href="{{base_path}}/customer/{{customer.id}}/destroy" class="btn btn-default">Poista</button></a>
-      <a href="{{base_path}}/customer" class="btn btn-default">Palaa</button></a>
+      <a href="{{base_path}}/customer/{{customer.id}}/edit" class="btn btn-default">Muokkaa asiakastietoja</button></a>
+      <a href="{{base_path}}/customer/{{customer.id}}/edit" class="btn btn-default">Luo käyttäjätunnus</button></a>
+      <a href="{{base_path}}/customer/{{customer.id}}/edit" class="btn btn-default">Luo uusi sopimus</button></a>
+      <a href="{{base_path}}/customer/{{customer.id}}/destroy" class="btn btn-danger">Poista</button></a>
     </div>
+
+    <h4>Asiakkaan vakuutussopimukset: </h4>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Tuote</th>
+          <th>Sopimustunnus</th>
+          <th>Vakuutuksenottaja</th>
+          <th>Turvan suuruus</th>
+          <th>Vakuutusmaksu</th>
+          <th>Tila</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <!-- Listataan pelit tähän -->
+        {% for policy in policies %}
+          <tr>
+            <td>{{policy.tuotenimi}}</td>
+            <td>{{policy.sopimustunnus}}</td>
+            <td>{{policy.sukunimi ~ " " ~ policy.etunimi}}</td>
+            <td>{{policy.turvansuuruus}}</td>
+            <td>{{policy.vakuutusmaksu}}</td>
+            <td>{{policy.tila}}</td>
+            <th><a class="btn btn-default btn-sm" href="{{base_path}}/policy/{{policy.id}}">Avaa</a></th>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </form>
 {% endblock %}

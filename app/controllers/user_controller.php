@@ -2,15 +2,6 @@
 
   class UserController extends BaseController {
 
-    public static function index($kayttajatunnus) {
-      $users = User::find($kayttajatunnus);
-      $asiakastunnus = $users->asiakastunnus;
-      $customers = User::find_customer($asiakastunnus); // hakee asiakkaan tiedot
-      $policies = Policy::all_customer($asiakastunnus); // hakee asiakkaan sopimukset
-
-      View::make('user/index.html', array('user' => $users, 'customer' => $customers, 'policies' => $policies)); // tehdään näkymä, josta käyttäjä näkee sopimukset
-    }
-
     public static function login() {
       View::make('user/login.html');
     }
@@ -30,12 +21,35 @@
       }
     }
 
+    public static function logout() {
+      $_SESSION['user'] = null;
+      Redirect::to('/', array('message' => 'Olet kirjautunut ulos!'));
+    }
+
+    public static function index($kayttajatunnus) {
+      $user = User::find($kayttajatunnus);
+      $user_role = $user->rooli;
+      $asiakastunnus = $user->asiakastunnus;
+      $customer = User::find_customer($asiakastunnus); // hakee asiakkaan tiedot
+      $customers = Customer::all(); // hakee asiakkaan tiedot
+      $policies = Policy::all_customer($asiakastunnus); // hakee asiakkaan sopimukset
+
+      if ($user_role == "asiakas") {
+        View::make('user/customer.html', array('user' => $user, 'customer' => $customer, 'policies' => $policies)); // tehdään näkymä, josta käyttäjä näkee sopimukset
+      } else {
+        View::make('user/index.html', array('user' => $user, 'customers' => $customers, 'policies' => $policies)); // tehdään näkymä, josta käyttäjä näkee sopimukset
+      }
+
+    }
+
     public static function passwd($kayttajatunnus) {
+      self::check_logged_in();
       $user = User::find($kayttajatunnus);
       View::make('user/passwd.html', array('user' => $user));
     }
 
     public static function change_passwd($kayttajatunnus) {
+      self::check_logged_in();
       $params = $_POST;
       $user_old = User::find($kayttajatunnus);
       $user_new = User::authenticate($kayttajatunnus, $params['old_password']);

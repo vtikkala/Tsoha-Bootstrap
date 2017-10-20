@@ -13,8 +13,8 @@
     // Käyttäjän autentikointi
     public static function authenticate($kayttajatunnus, $salasana) {
       $query = DB::connection()->prepare('SELECT * FROM kayttaja
-        WHERE kayttajatunnus = :kayttajatunnus LIMIT 1');
-      $query->execute(array('kayttajatunnus' => $kayttajatunnus));
+        WHERE kayttajatunnus = :kayttajatunnus AND salasana = :salasana LIMIT 1');
+      $query->execute(array('kayttajatunnus' => $kayttajatunnus, 'salasana' => $salasana));
       $row = $query->fetch();
 
       if ($row) {
@@ -26,17 +26,11 @@
           'asiakastunnus' => $row['rooli'],
           'tila' => $row['tila']
         ));
-
-        if ($user) {
-          $user_name = $user->kayttajatunnus;
-          $user_password = $user->salasana;
-
-          if ($kayttajatunnus == $user_name and $salasana == $user_password) {
-            return $user;
-          }
-        }
-
+        return $user;
+      } else {
+        return null;
       }
+
     }
 
     // Metodi joka palauttaa halutun käyttäjän
@@ -84,10 +78,26 @@
       }
     }
 
-    // Metodi palauttaa asikastunnuksen
+    // Metodi palauttaa käyttäjätunnuksen käyffäjä-id:llä
     public static function find_username($id) {
       $query = DB::connection()->prepare('SELECT kayttajatunnus FROM kayttaja
         WHERE id = :id LIMIT 1');
+      $query->execute(array('id' => $id));
+      $row = $query->fetch();
+
+      if ($row) {
+        $user = new User(array(
+          'kayttajatunnus' => $row['kayttajatunnus']
+        ));
+      }
+
+      return $user->kayttajatunnus;
+    }
+
+    // Metodi palauttaa käyttäjätunnuksen asiakas-id:llä
+    public static function find_username_for_customer($id) {
+      $query = DB::connection()->prepare('SELECT kayttajatunnus FROM kayttaja
+        WHERE asiakastunnus = :id LIMIT 1');
       $query->execute(array('id' => $id));
       $row = $query->fetch();
 

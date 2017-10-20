@@ -111,7 +111,18 @@
 
         return $policy;
       }
-
     }
+
+
+    public function savechanges_customer() {
+      $query = DB::connection()->prepare('UPDATE sopimus SET turvansuuruus = :turvansuuruus, vakuutusmaksu = :vakuutusmaksu WHERE id = :id');
+      $query->execute(array('id' => $this->id,'turvansuuruus' => $this->turvansuuruus, 'vakuutusmaksu' => $this->vakuutusmaksu));
+    }
+
+    public function destroy() {
+      $query = DB::connection()->prepare('UPDATE sopimus SET tila = :tila WHERE id = :id');
+      $query->execute(array('id' => $this->id, 'tila' => $this->tila));
+    }
+
 
   }

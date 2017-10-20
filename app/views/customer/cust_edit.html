@@ -2,20 +2,17 @@
 {% block content %}
   <h1>Asiakastietojen muokkaaminen</h1>
   <form method="post" action="{{base_path}}/customer/{{customer.id}}/cust_edit">
-    <div class="alert alert-success">
-      {{message}}
-    </div>
     <div class="form-group">
       <label>Sukunimi</label>
-      <input name="sukunimi" class="form-control" value="{{customer.sukunimi}}" type="text">
+      <input name="sukunimi" class="form-control" value="{{customer.sukunimi}}" type="text" disabled>
     </div>
     <div class="form-group">
       <label>Etunimi</label>
-      <input name="etunimi" class="form-control" value="{{customer.etunimi}}" type="text">
+      <input name="etunimi" class="form-control" value="{{customer.etunimi}}" type="text" disabled>
     </div>
     <div class="form-group">
       <label>Henkilötunnus</label>
-      <input name="henkilotunnus" class="form-control" value="{{customer.henkilotunnus}}" type="text">
+      <input name="henkilotunnus" class="form-control" value="{{customer.henkilotunnus}}" type="text" disabled>
     </div>
     <div class="form-group">
       <label>Katuosoite</label>
@@ -36,7 +33,7 @@
 
     <div class="form-group">
       <button type="submit" class="btn btn-default">Tallenna</button>
-      <a href="{{base_path}}/{{customer.id}}" class="btn btn-default">Palaa</button></a>
+      <a href="javascript:history.back()" class="btn btn-default">Palaa</button></a>
     </div>
   </form>
 {% endblock %}

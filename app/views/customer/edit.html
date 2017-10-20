@@ -1,10 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Asiakkaan muokkaaminen</h1>
-  <form method="post" action="{{base_path}}/customer/{{customer.id}}/edit">
-    <div class="alert alert-success">
-      {{message}}
-    </div>
+
+    {% if message %}
+      <div class="alert alert-success">
+        {{message}}
+      </div>
+    {% endif %}
+
+    {% if error %}
+      <div class="alert alert-danger">
+        {{error}}
+      </div>
+    {% endif %}
+
+    <form method="post" action="{{base_path}}/customer/{{customer.id}}/edit">
     <div class="form-group">
       <label>Sukunimi</label>
       <input name="sukunimi" class="form-control" value="{{customer.sukunimi}}" type="text">

@@ -81,6 +81,14 @@
       'postitoimipaikka' => $this->postitoimipaikka, 'puhelinnumero' => $this->puhelinnumero, 'tila' => $this->tila));
     }
 
+    public function savechanges_customer() {
+      $query = DB::connection()->prepare('UPDATE asiakas SET katuosoite = :katuosoite, postinumero = :postinumero,
+        postitoimipaikka = :postitoimipaikka, puhelinnumero = :puhelinnumero WHERE id = :id');
+
+      $query->execute(array('id' => $this->id,'katuosoite' => $this->katuosoite, 'postinumero' => $this->postinumero,
+      'postitoimipaikka' => $this->postitoimipaikka, 'puhelinnumero' => $this->puhelinnumero));
+    }
+
     public function delete() {
       $query = DB::connection()->prepare('DELETE FROM asiakas WHERE id = :id');
       $query->execute(array('id' => $this->id));

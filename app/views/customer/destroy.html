@@ -2,13 +2,21 @@
 {% block content %}
   <h1>Poista asiakas</h1>
   <form method="post" action="{{base_path}}/customer/{{customer.id}}/destroy">
-    <div class="alert alert-success">
-      {{message}}
-    </div>
-    
+    {% if message %}
+      <div class="alert alert-success">
+        {{message}}
+      </div>
+    {% endif %}
+
+    {% if error %}
+      <div class="alert alert-danger">
+        {{error}}
+      </div>
+    {% endif %}
+
     <ul>
       <li><strong>Asiakastunnus: </strong>{{customer.id}}</li>
-      <li><strong>Tila: </strong> <label class="label label-danger">{{customer.tila}}</label></li>
+      <li><strong>Tila: </strong>{{customer.tila}}</li>
       <li><strong>Henkilötunnus: </strong>{{customer.henkilotunnus}}</li>
       <li><strong>Sukunimi: </strong>{{customer.sukunimi}}</li>
       <li><strong>Etunimi: </strong>{{customer.etunimi}}</li>
@@ -20,7 +28,7 @@
 
     <div class="form-group">
       <button type="submit" class="btn btn-danger">Poista</button>
-      <a href="{{base_path}}/customer" class="btn btn-default">Palaa</button></a>
+      <a href="javascript:history.back()" class="btn btn-default">Palaa</button></a>
     </div>
   </form>
 {% endblock %}

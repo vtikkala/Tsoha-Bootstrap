@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Sopimuksen luonti</h1>
+    <form method="post" action="{{base_path}}/policy/new">
+    <div class="form-group">
+      <label>Sopimustunnus</label>
+      <input name="sopimustunnus" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label>Tuotetunnus</label>
+      <input name="tuotetunnus" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label>Vakuutuksenottajan ID</label>
+      <input name="vakuutuksenottaja" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label>1. vakuutetun ID</label>
+      <input name="vakuutettu1" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label>2. vakuutetun ID</label>
+      <input name="vakuutettu2" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label>Tila</label>
+      <input name="tila" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label>Turvan suuruus (euroina)</label>
+      <input name="turvansuuruus" class="form-control" vtype="text">
+    </div>
+    <div class="form-group">
+      <label>Vakuutusmaksu (euroina)</label>
+      <input name="vakuutusmaksu" class="form-control" vtype="text">
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Tallenna</button>
+      <a href="javascript:history.back()" class="btn btn-default">Palaa</button></a>
+    </div>
+  </form>
+{% endblock %}
