@@ -33,6 +33,18 @@
 
     }
 
+    // Metodi joka tallentaa käyttäjän
+    public function save() {
+      $query = DB::connection()->prepare('INSERT INTO kayttaja (kayttajatunnus, salasana, rooli, asiakastunnus, tila)
+        VALUES (:kayttajatunnus, :salasana, :rooli, :asiakastunnus, :tila) RETURNING id');
+
+      $query->execute(array('kayttajatunnus' => $this->kayttajatunnus, 'salasana' => $this->salasana,
+      'rooli' => $this->rooli, 'asiakastunnus' => $this->asiakastunnus, 'tila' => $this->tila));
+
+      $row = $query->fetch();
+      $this->id = $row['id'];
+    }
+
     // Metodi joka palauttaa halutun käyttäjän
     public static function find($kayttajatunnus) {
       $query = DB::connection()->prepare('SELECT * FROM kayttaja

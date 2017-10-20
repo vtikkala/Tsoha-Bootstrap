@@ -113,6 +113,19 @@
       }
     }
 
+    public function save() {
+      $query = DB::connection()->prepare('INSERT INTO sopimus (sopimustunnus, tuotetunnus, vakuutuksenottaja, vakuutettu1,
+      vakuutettu2, tila, turvansuuruus, vakuutusmaksu) VALUES (:sopimustunnus, :tuotetunnus, :vakuutuksenottaja,
+      :vakuutettu1, :vakuutettu2, :tila, :turvansuuruus, :vakuutusmaksu) RETURNING id');
+
+      $query->execute(array('sopimustunnus' => $this->sopimustunnus, 'tuotetunnus' => $this->tuotetunnus,
+      'vakuutuksenottaja' => $this->vakuutuksenottaja, 'vakuutettu1' => $this->vakuutettu1, 'vakuutettu2' => $this->vakuutettu2,
+      'tila' => $this->tila, 'turvansuuruus' => $this->turvansuuruus, 'vakuutusmaksu' => $this->vakuutusmaksu));
+
+      $row = $query->fetch();
+      $this->id = $row['id'];
+    }
+
 
     public function savechanges_customer() {
       $query = DB::connection()->prepare('UPDATE sopimus SET turvansuuruus = :turvansuuruus, vakuutusmaksu = :vakuutusmaksu WHERE id = :id');

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Sopimuksen luonti</h1>
+    <form method="post" action="{{base_path}}/user/new">
+    <div class="form-group">
+      <label>Kayttajatunnus</label>
+      <input name="kayttajatunnus" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label>Salasana</label>
+      <input name="salasana" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label>Rooli (asiakas / backoffice)</label>
+      <input name="rooli" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label>Asiakastunnus (valinnainen)</label>
+      <input name="asiakastunnus" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label>Tila</label>
+      <input name="tila" class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Tallenna</button>
+      <a href="javascript:history.back()" class="btn btn-default">Palaa</button></a>
+    </div>
+  </form>
+{% endblock %}

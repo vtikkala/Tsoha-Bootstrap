@@ -16,6 +16,14 @@
     UserController::logout();
   });
 
+  $routes->get('/user/new', function() {
+    UserController::new();
+  });
+
+  $routes->post('/user/new', function() {
+    UserController::create();
+  });
+
   $routes->get('/user/:kayttajatunnus', function($kayttajatunnus) {
     UserController::index($kayttajatunnus);
   });
@@ -79,7 +87,7 @@
 
   $routes->post('/policy/new', function() {
     PolicyController::create();
-  })
+  });
 
   $routes->get('/policy/:id', function($id) {
     PolicyController::show($id);

@@ -2,14 +2,31 @@
 
   class PolicyController extends BaseController {
 
-    public statuc function new() {
+    public static function new() {
       self::check_logged_in();
 
-      View::make('policy/new.html')
+      View::make('policy/new.html');
     }
 
+    public static function create() {
+      $params = $_POST;
+      $customer = $params['vakuutuksenottaja'];
 
+      $policy = new Policy(array(
+        'sopimustunnus' => $params['sopimustunnus'],
+        'tuotetunnus' => $params['tuotetunnus'],
+        'vakuutuksenottaja' => $params['vakuutuksenottaja'],
+        'vakuutettu1' => $params['vakuutettu1'],
+        'vakuutettu2' => $params['vakuutettu2'],
+        'tila' => $params['tila'],
+        'turvansuuruus' => $params['turvansuuruus'],
+        'vakuutusmaksu' => $params['vakuutusmaksu']
+      ));
 
+      $policy->save();
+
+      Redirect::to('/customer/' . $customer, array('message' => 'Sopimus on lisätty rekisteriin.'));
+    }
 
     public static function show($id) {
       self::check_logged_in();

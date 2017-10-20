@@ -2,6 +2,27 @@
 
   class UserController extends BaseController {
 
+    public static function new() {
+      View::make('user/new.html');
+    }
+
+    public static function create() {
+      $params = $_POST;
+
+      $user = new User(array(
+        'kayttajatunnus' => $params['kayttajatunnus'],
+        'salasana' => $params['salasana'],
+        'rooli' => $params['rooli'],
+        'asiakastunnus' => $params['asiakastunnus'],
+        'tila' => $params['tila']
+      ));
+
+      $user->save();
+      Redirect::to('/', array('message' => 'Käyttäjä lisätty, kirjaudu uudelleen!'));
+    }
+
+
+
     public static function login() {
       View::make('user/login.html');
     }
@@ -31,7 +52,7 @@
       $user_role = $user->rooli;
       $asiakastunnus = $user->asiakastunnus;
       $customer = User::find_customer($asiakastunnus); // hakee asiakkaan tiedot
-      $customers = Customer::all(); // hakee asiakkaan tiedot
+      $customers = Customer::all(); // hakee asiakkaan tiedoth
       $policies = Policy::all_customer($asiakastunnus); // hakee asiakkaan sopimukset
 
       if ($user_role == "asiakas") {
